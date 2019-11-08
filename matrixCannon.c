@@ -94,9 +94,9 @@ int main(int argc, char ** argv){
 
 		  // intialise the matrix(ces) a
         a=alloc_matrix(n,n);init_matrix_unit(n,n,a);
-        print_matrix(n,n,a);printf("\n--------------- Matrix a-------------------\n");
+        print_matrix(n,n,a);printf("\n############### Matrix A ###################\n");
         b=alloc_matrix(n,n);init_matrix(n,n,b,n/p);
-        print_matrix(n,n,b);printf("\n--------------- Matrix b -------------------\n");
+        print_matrix(n,n,b);printf("\n############### Matrix b ###################\n");
         c = alloc_matrix(n,n);
 
 	  }
@@ -190,12 +190,12 @@ int main(int argc, char ** argv){
 	printf("Execution time of P %d is %lf\n", rank,time_diff);
 
 	if(rank ==0){
-		printf("--------------Product matrix --------------------\n");
+		printf("############### Product matrix ################\n");
 		print_matrix(n,n,c);
 
 	}
 
-	printf("Execution time of P %d is %lf\n", rank,time_diff);
+	printf("Execution time of P with rank %d is %lf\n", rank,time_diff);
 
 	MPI_Finalize();
 
@@ -257,27 +257,6 @@ void init_matrix(int n, int m, int ** a, int p){
 }
 
 
-/*
-
-the function prod_matrix is to multiply two matrices:
-
-a with n rows and l colums and b with with l rows and m colums
-
-the arguments are
-
-  n ==> number of rows of a
-  l ==> number of colums of a (and rows of b)
-  m ==> number of columns of b
-  a ==> matrix 1
-  b ==> matrix 2
-
-the function returns the matrix pointer c
-
-
-*/
-
-
-
 int ** prod_matrix(int n, int l, int m, int ** a, int ** b){
 
         int i,j,k,** c;
@@ -296,19 +275,6 @@ int ** prod_matrix(int n, int l, int m, int ** a, int ** b){
 
 }
 
-/*
-
-the function init_matrix prints the matrix a
-
-the argumentps are
-
-  n ==> number of rows
-  m ==> number of columns
-  a ==> matrix
-
-
-*/
-
 
 void print_matrix(int n, int m, int ** a){
 
@@ -323,25 +289,6 @@ void print_matrix(int n, int m, int ** a){
 
 
 }
-
-
-/*
-
-the function extract_matrix extracts from the matrix a with na rows and ma columns
-
-a submatrix b with nb rows and mb columns starting from the element row and col.
-
-the arguments are
-
-  na ==> number of rows of a
-  ma ==> number of columns of a
-  a ==> matrix
-  nb ==> number of rows of b
-  mb ==> number of columns of b
-  b ==> extracted matrix
-  row, col ==> where to extract from
-
-*/
 
 
 void extract_matrix(int na, int ma, int ** a, int nb, int mb, int ** b, int row, int col){
@@ -381,20 +328,6 @@ void combine_matrix(int na, int ma, int ** a, int nb, int mb, int ** b, int row,
 
 
 }
-/*
-
-the function implant_matrix is the opposite to the function extract_matrix
-
-
-  na ==> number of rows of a
-  ma ==> number of columns of a
-  a ==> matrix
-  nb ==> number of rows of b
-  mb ==> number of columns of b
-  b ==> extracted matrix
-  row, col ==> where to extract from
-
-*/
 
 void implant_matrix(int na, int ma, int ** a, int nb, int mb, int ** b, int row, int col){
 
@@ -402,7 +335,7 @@ void implant_matrix(int na, int ma, int ** a, int nb, int mb, int ** b, int row,
 
 		if(na<row+nb || na<col+mb){
 
-			printf("Impossible to extract");
+			printf("This matrix cannot be extracted");
 			return;
 
 		}
